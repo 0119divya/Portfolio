@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — Agile Manager</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1B3A6B;
+    --navy-deep: #0F2347;
+    --navy-mid: #2E5299;
+    --gold: #C9A84C;
+    --gold-light: #E8C876;
+    --off-white: #F5F3EE;
+    --warm-gray: #8A8680;
+    --dark: #12100E;
+    --card-bg: #FFFFFF;
+    --section-alt: #F0EDE8;
+    --border: #DDD8D0;
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body: 'DM Sans', sans-serif;
+    --font-mono: 'DM Mono', monospace;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--off-white);
+    color: var(--dark);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(27,58,107,0.97);
+    backdrop-filter: blur(12px);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 4rem;
+    height: 64px;
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+  }
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--gold);
+    letter-spacing: 0.02em;
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: rgba(255,255,255,0.75);
+    text-decoration: none;
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    background: var(--navy-deep);
+    display: flex; align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding: 120px 4rem 80px;
+  }
+  .hero-grid-bg {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .hero-glow {
+    position: absolute; top: -200px; right: -200px;
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(46,82,153,0.4) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-content { position: relative; max-width: 900px; }
+  .hero-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--gold);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 40px; height: 1px;
+    background: var(--gold);
+  }
+  .hero-name {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    font-weight: 900;
+    color: #FFFFFF;
+    line-height: 1.05;
+    margin-bottom: 0.5rem;
+  }
+  .hero-name span { color: var(--gold); }
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+    color: rgba(255,255,255,0.55);
+    font-weight: 400;
+    font-style: italic;
+    margin-bottom: 2rem;
+  }
+  .hero-tagline {
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.75);
+    max-width: 600px;
+    line-height: 1.75;
+    margin-bottom: 3rem;
+    font-weight: 300;
+  }
+  .hero-stats {
+    display: flex; gap: 3rem;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+  }
+  .stat { text-align: left; }
+  .stat-num {
+    font-family: var(--font-display);
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 4px;
+  }
+  .hero-cta {
+    display: inline-flex; align-items: center; gap: 0.75rem;
+    background: var(--gold);
+    color: var(--navy-deep);
+    padding: 0.9rem 2rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .hero-cta:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .hero-cta-ghost {
+    display: inline-flex; align-items: center; gap: 0.75rem;
+    border: 1px solid rgba(255,255,255,0.25);
+    color: rgba(255,255,255,0.75);
+    padding: 0.9rem 2rem;
+    font-weight: 500;
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: border-color 0.2s, color 0.2s;
+    margin-left: 1rem;
+  }
+  .hero-cta-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* ── SECTIONS ── */
+  section { padding: 100px 4rem; }
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--gold);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .section-label::before {
+    content: ''; width: 30px; height: 1px; background: var(--gold); display: inline-block;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 1rem;
+    line-height: 1.15;
+  }
+  .section-title span { color: var(--gold); }
+
+  /* ── ABOUT ── */
+  #about { background: var(--off-white); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 6rem;
+    align-items: start;
+    margin-top: 3rem;
+  }
+  .about-left {}
+  .about-badge {
+    display: inline-block;
+    background: var(--navy);
+    color: var(--gold);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.4rem 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .about-headline {
+    font-family: var(--font-display);
+    font-size: 1.7rem;
+    font-weight: 600;
+    color: var(--navy);
+    line-height: 1.3;
+    margin-bottom: 1.5rem;
+  }
+  .about-text {
+    color: #3D3A35;
+    font-size: 0.97rem;
+    line-height: 1.85;
+    margin-bottom: 1.2rem;
+    font-weight: 300;
+  }
+  .about-right {}
+  .about-card {
+    background: var(--navy);
+    color: white;
+    padding: 2.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .about-card-title {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+  .about-card-text {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.8);
+    font-weight: 300;
+  }
+  .values-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+  .values-list li {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.75);
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .values-list li::before {
+    content: '→';
+    color: var(--gold);
+    font-size: 0.8rem;
+  }
+
+  /* ── A DAY IN MY LIFE ── */
+  #day { background: var(--navy-deep); color: white; }
+  #day .section-title { color: white; }
+  .day-intro {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.6);
+    max-width: 600px;
+    margin-bottom: 3rem;
+    font-weight: 300;
+    line-height: 1.8;
+  }
+  .day-timeline { display: flex; flex-direction: column; gap: 0; max-width: 860px; }
+  .day-item {
+    display: grid;
+    grid-template-columns: 120px 1px 1fr;
+    gap: 0 2rem;
+    position: relative;
+  }
+  .day-time {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--gold);
+    padding: 1.5rem 0;
+    text-align: right;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+  }
+  .day-line {
+    background: rgba(201,168,76,0.2);
+    position: relative;
+    display: flex; flex-direction: column; align-items: center;
+  }
+  .day-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--gold);
+    margin-top: 1.75rem;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+  .day-line::before {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0; left: 50%;
+    width: 1px;
+    background: rgba(201,168,76,0.2);
+    transform: translateX(-50%);
+  }
+  .day-content {
+    padding: 1.25rem 0 1.25rem;
+  }
+  .day-activity {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: white;
+    margin-bottom: 0.3rem;
+  }
+  .day-desc {
+    font-size: 0.87rem;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.65;
+    font-weight: 300;
+  }
+
+  /* ── EXPERIENCE ── */
+  #experience { background: var(--section-alt); }
+  .exp-list { margin-top: 3rem; display: flex; flex-direction: column; gap: 2px; }
+  .exp-item {
+    background: white;
+    border-left: 3px solid transparent;
+    transition: border-color 0.2s;
+    cursor: pointer;
+  }
+  .exp-item:hover, .exp-item.open { border-left-color: var(--gold); }
+  .exp-header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    padding: 1.75rem 2rem;
+    gap: 2rem;
+  }
+  .exp-role {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 0.25rem;
+  }
+  .exp-company {
+    font-size: 0.88rem;
+    color: var(--warm-gray);
+    font-weight: 400;
+  }
+  .exp-meta { text-align: right; }
+  .exp-dates {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--gold);
+    letter-spacing: 0.08em;
+    margin-bottom: 0.25rem;
+  }
+  .exp-toggle {
+    font-size: 0.75rem;
+    color: var(--warm-gray);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .exp-body {
+    display: none;
+    padding: 0 2rem 2rem;
+    border-top: 1px solid var(--border);
+    margin-top: 0;
+  }
+  .exp-item.open .exp-body { display: block; }
+  .exp-body-intro {
+    font-size: 0.9rem;
+    color: #3D3A35;
+    line-height: 1.8;
+    margin: 1.25rem 0;
+    font-weight: 300;
+  }
+  .exp-highlights { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .exp-highlights li {
+    font-size: 0.88rem;
+    color: #3D3A35;
+    padding-left: 1.25rem;
+    position: relative;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+  .exp-highlights li::before {
+    content: '▸';
+    color: var(--gold);
+    position: absolute; left: 0;
+    font-size: 0.7rem;
+    top: 3px;
+  }
+  .exp-tags {
+    display: flex; flex-wrap: wrap; gap: 0.4rem;
+    margin-top: 1.25rem;
+  }
+  .exp-tag {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    background: var(--navy);
+    color: var(--gold);
+    padding: 0.2rem 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* ── SKILLS ── */
+  #skills { background: var(--off-white); }
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5px;
+    margin-top: 3rem;
+    background: var(--border);
+  }
+  .skill-block {
+    background: white;
+    padding: 2rem;
+    transition: background 0.2s;
+  }
+  .skill-block:hover { background: var(--navy); }
+  .skill-block:hover .skill-cat { color: var(--gold); }
+  .skill-block:hover .skill-items { color: rgba(255,255,255,0.75); }
+  .skill-icon {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+  .skill-cat {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 0.75rem;
+    transition: color 0.2s;
+  }
+  .skill-items {
+    font-size: 0.85rem;
+    color: var(--warm-gray);
+    line-height: 1.7;
+    font-weight: 300;
+    transition: color 0.2s;
+  }
+
+  /* ── CERTIFICATIONS ── */
+  #certifications { background: var(--navy); }
+  #certifications .section-title { color: white; }
+  .certs-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  .cert-card {
+    border: 1px solid rgba(201,168,76,0.25);
+    padding: 2.5rem 2rem;
+    text-align: center;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .cert-card:hover {
+    border-color: var(--gold);
+    background: rgba(201,168,76,0.05);
+  }
+  .cert-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+  .cert-name {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 0.5rem;
+  }
+  .cert-body {
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.45);
+    font-family: var(--font-mono);
+    letter-spacing: 0.06em;
+  }
+
+  /* ── CONTACT ── */
+  #contact { background: var(--off-white); }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 6rem;
+    align-items: center;
+    margin-top: 3rem;
+  }
+  .contact-left .section-title { margin-bottom: 1rem; }
+  .contact-text {
+    font-size: 0.97rem;
+    color: #3D3A35;
+    line-height: 1.85;
+    font-weight: 300;
+    margin-bottom: 2rem;
+  }
+  .contact-availability {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    background: var(--navy);
+    color: var(--gold);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.5rem 1.2rem;
+    margin-bottom: 2rem;
+  }
+  .avail-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: #4CAF50;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+  .contact-links { display: flex; flex-direction: column; gap: 1rem; }
+  .contact-link {
+    display: flex; align-items: center; gap: 1rem;
+    padding: 1.25rem 1.5rem;
+    background: white;
+    border: 1px solid var(--border);
+    text-decoration: none;
+    color: var(--navy);
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .contact-link:hover { border-color: var(--navy); background: var(--navy); color: white; }
+  .contact-link-icon { font-size: 1.1rem; }
+  .contact-right {
+    background: var(--navy);
+    padding: 3rem;
+  }
+  .contact-form-title {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    color: white;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+  }
+  .form-group { margin-bottom: 1.25rem; }
+  .form-group label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+  .form-group input, .form-group textarea {
+    width: 100%;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: white;
+    padding: 0.75rem 1rem;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-group input:focus, .form-group textarea:focus { border-color: var(--gold); }
+  .form-group textarea { height: 100px; resize: vertical; }
+  .form-submit {
+    width: 100%;
+    background: var(--gold);
+    border: none;
+    color: var(--navy-deep);
+    padding: 0.9rem;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.88rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .form-submit:hover { background: var(--gold-light); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--navy-deep);
+    padding: 2rem 4rem;
+    display: flex; align-items: center; justify-content: space-between;
+    border-top: 1px solid rgba(201,168,76,0.15);
+  }
+  .footer-copy {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 0.08em;
+  }
+  .footer-back {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--gold);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* ── ANIMATIONS ── */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .fade-in.visible { opacity: 1; transform: none; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 0 1.5rem; }
+    .nav-links { gap: 1rem; }
+    section { padding: 70px 1.5rem; }
+    #hero { padding: 120px 1.5rem 60px; }
+    .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .certs-grid { grid-template-columns: 1fr; }
+    .hero-stats { gap: 2rem; }
+    footer { padding: 1.5rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">DIVYA</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#day">A Day</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#certifications">Certifications</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Agile Manager</p>
+    <h1 class="hero-name">D<span>IVYA</span></h1>
+    <p class="hero-title">Scrum Master &nbsp;·&nbsp; Project Manager &nbsp;·&nbsp; Delivery Manager</p>
+    <p class="hero-tagline">
+      I build delivery cultures, not just processes. With 12+ years in BFSI and Wealth Management,
+      I turn ambiguous programmes into structured, high-velocity delivery engines — one sprint at a time.
+    </p>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">12+</div>
+        <div class="stat-label">Years in IT</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">6</div>
+        <div class="stat-label">Concurrent Projects Led</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">55+</div>
+        <div class="stat-label">Team Members Managed</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">4</div>
+        <div class="stat-label">Global BFSI Clients</div>
+      </div>
+    </div>
+    <a href="#contact" class="hero-cta">Open to Opportunities ↗</a>
+    <a href="#experience" class="hero-cta-ghost">View My Work</a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">Who I Am</div>
+  <h2 class="section-title">Delivery is a <span>discipline,</span><br>not a department.</h2>
+  <div class="about-grid">
+    <div class="about-left fade-in">
+      <div class="about-badge">12+ Years · BFSI & Wealth Management</div>
+      <p class="about-headline">I've built delivery from the ground up — more than once.</p>
+      <p class="about-text">
+        My career started with writing COBOL on mainframes and evolved into leading multi-project portfolios, 
+        coaching Scrum teams, and sitting across the table from C-suite stakeholders to present strategic 
+        roadmaps. That breadth — from code to boardroom — is what makes me a different kind of delivery leader.
+      </p>
+      <p class="about-text">
+        I don't manage delivery from a distance. I'm in the backlog with the team, I'm in the budget 
+        conversation with finance, and I'm in the risk register before anyone else has spotted the problem. 
+        My job is to make sure the right things get done, by the right people, in the right order — every sprint.
+      </p>
+      <p class="about-text">
+        Whether the title says Scrum Master, Project Manager, or Delivery Manager, the mission is the same: 
+        build a team that ships with confidence, and a process that survives beyond my tenure.
+      </p>
+    </div>
+    <div class="about-right fade-in">
+      <div class="about-card">
+        <div class="about-card-title">What I Bring</div>
+        <div class="about-card-text">
+          A rare combination of Agile coaching depth, programme governance experience, and hands-on 
+          tooling expertise across JIRA, Azure DevOps, and Confluence. I've worked with freshers and 
+          Fortune 500 teams alike — the fundamentals of good delivery don't change with the org size.
+        </div>
+        <ul class="values-list" style="margin-top:1.5rem;">
+          <li>Delivery governance</li>
+          <li>Agile & SAFe coaching</li>
+          <li>Stakeholder management</li>
+          <li>Azure DevOps reporting</li>
+          <li>Risk & RAID management</li>
+          <li>Team capability building</li>
+          <li>Financial reporting</li>
+          <li>Client relationship mgmt</li>
+        </ul>
+      </div>
+      <div class="about-card" style="background: var(--section-alt); color: var(--dark);">
+        <div class="about-card-title" style="color: var(--navy);">Domains I Know Well</div>
+        <div class="about-card-text" style="color: #3D3A35;">
+          BFSI (Banking, Financial Services & Insurance) · Wealth Management · Fintech · 
+          Mainframe platforms · Regulatory compliance programmes · Cards & Payments infrastructure
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- A DAY IN MY LIFE -->
+<section id="day">
+  <div class="section-label">How I Work</div>
+  <h2 class="section-title">A Day in My Life</h2>
+  <p class="day-intro">
+    No two days are identical in programme delivery — but here's a window into how a typical 
+    working day looks when I'm running a multi-project portfolio.
+  </p>
+  <div class="day-timeline">
+    <div class="day-item">
+      <div class="day-time">8:30 AM</div>
+      <div class="day-line"><div class="day-dot"></div></div>
+      <div class="day-content">
+        <div class="day-activity">Programme Health Check</div>
+        <div class="day-desc">First thing — open Azure DevOps dashboards across all active projects. Review overnight updates, check sprint burn-down, flag any items that have slipped or are at risk. If something needs escalation, it goes on the morning agenda before stand-ups begin.</div>
+      </div>
+    </div>
+    <div class="day-item">
+      <div class="day-time">9:30 AM</div>
+      <div class="day-line"><div class="day-dot"></div></div>
+      <div class="day-content">
+        <div class="day-activity">Daily Stand-ups & Scrum Ceremonies</div>
+        <div class="day-desc">Facilitating or observing stand-ups across teams. I'm listening for blockers, dependencies, and anything that doesn't add up between what was planned and what's being reported. Impediments get logged and actioned immediately — not parked for a later meeting.</div>
+      </div>
+    </div>
+    <div class="day-item">
+      <div class="day-time">11:00 AM</div>
+      <div class="day-line"><div class="day-dot"></div></div>
+      <div class="day-content">
+        <div class="day-activity">Stakeholder Connects & Governance Calls</div>
+        <div class="day-desc">Client calls, internal governance reviews, or 1:1s with delivery leads. I bring data — sprint metrics, risk status, budget tracking — not just status updates. Every governance call should leave stakeholders informed and confident, not just attended to.</div>
+      </div>
+    </div>
+    <div class="day-item">
+      <div class="day-time">1:00 PM</div>
+      <div class="day-line"><div class="day-dot"></div></div>
+      <div class="day-content">
+        <div class="day-activity">Backlog Refinement & Planning Sessions</div>
+        <div class="day-desc">Working with Product Owners and teams to groom upcoming stories, clarify acceptance criteria, break down dependencies, and ensure the next sprint is scoped and ready. Good planning is the cheapest form of risk management.</div>
+      </div>
+    </div>
+    <div class="day-item">
+      <div class="day-time">3:00 PM</div>
+      <div class="day-line"><div class="day-dot"></div></div>
+      <div class="day-content">
+        <div class="day-activity">RAID Management & Risk Reviews</div>
+        <div class="day-desc">Updating RAID logs, reviewing open risks with delivery leads, and ensuring mitigation actions are tracked and owned. Risks don't resolve themselves — someone has to own every row in the register, and I make sure they do.</div>
+      </div>
+    </div>
+    <div class="day-item">
+      <div class="day-time">4:30 PM</div>
+      <div class="day-line"><div class="day-dot"></div></div>
+      <div class="day-content">
+        <div class="day-activity">Reporting & Dashboard Updates</div>
+        <div class="day-desc">Preparing programme status reports, updating executive dashboards, and reviewing financial tracking. Automated where possible — I've built reporting pipelines that save 8–10 hours a week of manual effort across teams.</div>
+      </div>
+    </div>
+    <div class="day-item">
+      <div class="day-time">5:30 PM</div>
+      <div class="day-line"><div class="day-dot"></div></div>
+      <div class="day-content">
+        <div class="day-activity">Team Coaching & 1:1s</div>
+        <div class="day-desc">The part that matters most in the long run. Coaching Scrum Masters, mentoring younger team members, and having honest conversations about what's working and what isn't. The best investment I make daily is in the team's ability to deliver without me.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DETAILED EXPERIENCE -->
+<section id="experience">
+  <div class="section-label">Career Timeline</div>
+  <h2 class="section-title">Where I've <span>Delivered</span></h2>
+  <div class="exp-list">
+
+    <!-- Crosslynx -->
+    <div class="exp-item open" onclick="toggleExp(this)">
+      <div class="exp-header">
+        <div>
+          <div class="exp-role">Project Manager</div>
+          <div class="exp-company">Crosslynx US LLC &nbsp;·&nbsp; Noida, India</div>
+        </div>
+        <div class="exp-meta">
+          <div class="exp-dates">Mar 2025 — Feb 2026</div>
+          <div class="exp-toggle">▴ collapse</div>
+        </div>
+      </div>
+      <div class="exp-body">
+        <p class="exp-body-intro">
+          Joined as the organisation's first dedicated delivery leader to build programme governance from scratch across 
+          6 simultaneous projects with a combined 55-member workforce — predominantly freshers. The challenge: build 
+          delivery discipline, Agile capability, and reporting infrastructure at the same time, from zero.
+        </p>
+        <ul class="exp-highlights">
+          <li>Managed a portfolio of 6 concurrent projects (₹2–4 Cr combined budget), improving on-time delivery from ~55% to over 85% within 9 months through structured governance and sprint frameworks.</li>
+          <li>Drove Azure DevOps work-logging compliance from 0% to 95% within 60 days — gave leadership real-time visibility into programme health for the first time.</li>
+          <li>Coached 55 team members on SAFe and Scrum practices, elevating Agile maturity from Level 1 to Level 3 in under 6 months and reducing sprint spillover from ~60% to under 15%.</li>
+          <li>Automated operational and financial reporting dashboards — saved 8–10 hours/week of manual effort and reduced monthly reconciliation from ~3 days to under 4 hours.</li>
+          <li>Collaborated with the CEO to build annual performance reviews and strategic roadmaps presented to 6 enterprise clients, directly supporting client confidence and retention.</li>
+          <li>Reduced scope creep by ~20% by implementing scoping frameworks, sprint gate reviews, and structured backlog refinement practices.</li>
+        </ul>
+        <div class="exp-tags">
+          <span class="exp-tag">SAFe</span><span class="exp-tag">Azure DevOps</span>
+          <span class="exp-tag">Scrum</span><span class="exp-tag">Portfolio Management</span>
+          <span class="exp-tag">RAID Logs</span><span class="exp-tag">Agile Coaching</span>
+          <span class="exp-tag">Financial Reporting</span><span class="exp-tag">Stakeholder Management</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- InvestCloud -->
+    <div class="exp-item" onclick="toggleExp(this)">
+      <div class="exp-header">
+        <div>
+          <div class="exp-role">Delivery Manager</div>
+          <div class="exp-company">InvestCloud Ltd &nbsp;·&nbsp; Bangalore, India</div>
+        </div>
+        <div class="exp-meta">
+          <div class="exp-dates">Aug 2023 — Nov 2024</div>
+          <div class="exp-toggle">▾ expand</div>
+        </div>
+      </div>
+      <div class="exp-body">
+        <p class="exp-body-intro">
+          Led a 20-member multidisciplinary team delivering mission-critical mainframe Wealth Management solutions 
+          for InvestCloud — a global wealth tech firm managing $6T in AUM across 550+ enterprise clients. 
+          Full ownership of delivery from design through production rollout.
+        </p>
+        <ul class="exp-highlights">
+          <li>Achieved zero critical SLA breaches across 15 months by proactively managing RAID logs and aligning delivery milestones with regulatory compliance checkpoints.</li>
+          <li>Improved sprint completion rates from ~70% to above 85% within 2 quarters by tightening backlog refinement, sprint scoping, and cross-functional dependency management.</li>
+          <li>Reduced defect leakage to UAT by ~35% over 12 months through sprint-level quality gates, structured Definition of Done, and test-entry criteria.</li>
+          <li>Managed end-to-end client relationships — overseeing scope, budget, and release planning at a CNBC Top Fintech 2024 company with senior stakeholder reporting throughout.</li>
+        </ul>
+        <div class="exp-tags">
+          <span class="exp-tag">Delivery Management</span><span class="exp-tag">Mainframe</span>
+          <span class="exp-tag">Wealth Management</span><span class="exp-tag">Client Management</span>
+          <span class="exp-tag">UAT</span><span class="exp-tag">SLA Governance</span>
+          <span class="exp-tag">BFSI</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Accenture -->
+    <div class="exp-item" onclick="toggleExp(this)">
+      <div class="exp-header">
+        <div>
+          <div class="exp-role">Scrum Master Specialist</div>
+          <div class="exp-company">Accenture Solutions Ltd &nbsp;·&nbsp; Pune, India</div>
+        </div>
+        <div class="exp-meta">
+          <div class="exp-dates">Sep 2019 — Aug 2023</div>
+          <div class="exp-toggle">▾ expand</div>
+        </div>
+      </div>
+      <div class="exp-body">
+        <p class="exp-body-intro">
+          Served as Scrum Master for global BFSI engagements — Barclays UK (Top-5 global bank) and 
+          InvestCloud US ($6T AUM platform) — leading a 15-member cross-functional team across a 4-year 
+          tenure. Implemented Scrum from scratch and sustained high-velocity delivery across both accounts.
+        </p>
+        <ul class="exp-highlights">
+          <li>Implemented the complete Scrum framework from scratch for Barclays UK — reduced average sprint spillover from ~40% to under 12% within 6 months.</li>
+          <li>Improved team sprint velocity by ~30% over 18 months on InvestCloud US through data-driven retrospectives and systematic backlog refinement.</li>
+          <li>Reduced defect escape rate by ~25% across BFSI release cycles through structured test-entry criteria and UAT handover protocols.</li>
+          <li>Maintained zero critical delivery failures across a 4-year engagement through proactive RAID management and stakeholder communication.</li>
+        </ul>
+        <div class="exp-tags">
+          <span class="exp-tag">Scrum Master</span><span class="exp-tag">Barclays UK</span>
+          <span class="exp-tag">InvestCloud US</span><span class="exp-tag">BFSI</span>
+          <span class="exp-tag">JIRA</span><span class="exp-tag">Backlog Management</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- HCL -->
+    <div class="exp-item" onclick="toggleExp(this)">
+      <div class="exp-header">
+        <div>
+          <div class="exp-role">Scrum Master & QA Lead</div>
+          <div class="exp-company">HCL Technologies Ltd &nbsp;·&nbsp; Bangalore, India</div>
+        </div>
+        <div class="exp-meta">
+          <div class="exp-dates">Sep 2016 — Sep 2019</div>
+          <div class="exp-toggle">▾ expand</div>
+        </div>
+      </div>
+      <div class="exp-body">
+        <p class="exp-body-intro">
+          Dual role as Scrum Master and QA Lead for a 12-member Agile team on Volvo (Sweden) and Allianz 
+          Tech (Germany) — my first dedicated Agile leadership role. Drove Agile adoption while owning 
+          end-to-end test activities across 6+ release cycles.
+        </p>
+        <ul class="exp-highlights">
+          <li>Guided Agile adoption and improved team velocity by ~15 story points/sprint within 12 months.</li>
+          <li>Maintained sprint commitment above 80% across a 3-year engagement with Fortune 500 clients.</li>
+          <li>Owned end-to-end QA: requirements, estimation, test case design, execution, and defect triage across 6+ release cycles.</li>
+        </ul>
+        <div class="exp-tags">
+          <span class="exp-tag">Scrum Master</span><span class="exp-tag">QA Lead</span>
+          <span class="exp-tag">Volvo</span><span class="exp-tag">Allianz Tech</span>
+          <span class="exp-tag">Agile</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hexaware -->
+    <div class="exp-item" onclick="toggleExp(this)">
+      <div class="exp-header">
+        <div>
+          <div class="exp-role">Developer</div>
+          <div class="exp-company">Hexaware Technologies Ltd &nbsp;·&nbsp; Chennai, India</div>
+        </div>
+        <div class="exp-meta">
+          <div class="exp-dates">Jun 2013 — Sep 2016</div>
+          <div class="exp-toggle">▾ expand</div>
+        </div>
+      </div>
+      <div class="exp-body">
+        <p class="exp-body-intro">
+          Where it all began. Developed COBOL/JCL programmes for regulatory and banking clients — 
+          built the technical foundation that informs how I understand engineering teams and delivery 
+          constraints to this day.
+        </p>
+        <ul class="exp-highlights">
+          <li>Delivered 4 COBOL/JCL modules for Basel II and Targo Bank (Germany) with zero critical production defects post-SIT.</li>
+          <li>Reduced peer review rework through structured code review checklists and UTP documentation standards.</li>
+        </ul>
+        <div class="exp-tags">
+          <span class="exp-tag">COBOL</span><span class="exp-tag">JCL</span>
+          <span class="exp-tag">Basel II</span><span class="exp-tag">Mainframe</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">Capabilities</div>
+  <h2 class="section-title">What I Work <span>With</span></h2>
+  <div class="skills-grid">
+    <div class="skill-block fade-in">
+      <span class="skill-icon">⚙️</span>
+      <div class="skill-cat">Frameworks & Methodologies</div>
+      <div class="skill-items">SAFe · Scrum · Kanban · Lean Agile · Waterfall · Hybrid Delivery</div>
+    </div>
+    <div class="skill-block fade-in">
+      <span class="skill-icon">🛠️</span>
+      <div class="skill-cat">Tools & Platforms</div>
+      <div class="skill-items">Azure DevOps · JIRA · Confluence · MS Project · Power BI · Excel</div>
+    </div>
+    <div class="skill-block fade-in">
+      <span class="skill-icon">📋</span>
+      <div class="skill-cat">Programme Delivery</div>
+      <div class="skill-items">Portfolio Management · Release Planning · RAID Logs · Dependency Tracking · Sprint Governance</div>
+    </div>
+    <div class="skill-block fade-in">
+      <span class="skill-icon">🤝</span>
+      <div class="skill-cat">Stakeholder Management</div>
+      <div class="skill-items">Client Relationship Management · Executive Reporting · SLA Governance · Escalation Handling</div>
+    </div>
+    <div class="skill-block fade-in">
+      <span class="skill-icon">👥</span>
+      <div class="skill-cat">Leadership & Coaching</div>
+      <div class="skill-items">Agile Coaching · Scrum Master Mentoring · Team Capability Building · Cultural Transformation</div>
+    </div>
+    <div class="skill-block fade-in">
+      <span class="skill-icon">📊</span>
+      <div class="skill-cat">Reporting & Governance</div>
+      <div class="skill-items">KPI Tracking · Dashboard Automation · Financial Reporting · Budget Management · P&L Oversight</div>
+    </div>
+    <div class="skill-block fade-in">
+      <span class="skill-icon">🏦</span>
+      <div class="skill-cat">Domain Knowledge</div>
+      <div class="skill-items">BFSI · Wealth Management · Fintech · Mainframe · Regulatory Compliance</div>
+    </div>
+    <div class="skill-block fade-in">
+      <span class="skill-icon">🔍</span>
+      <div class="skill-cat">Quality & Risk</div>
+      <div class="skill-items">Risk Management · UAT Oversight · DevSecOps Awareness · SDLC · Continuous Improvement</div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="section-label">Credentials</div>
+  <h2 class="section-title">Certifications & <span>Education</span></h2>
+  <div class="certs-grid">
+    <div class="cert-card">
+      <span class="cert-icon">🏅</span>
+      <div class="cert-name">Certified Scrum Master</div>
+      <div class="cert-body">CSM · Scrum Alliance</div>
+    </div>
+    <div class="cert-card">
+      <span class="cert-icon">📐</span>
+      <div class="cert-name">Six Sigma Yellow Belt</div>
+      <div class="cert-body">Process Excellence</div>
+    </div>
+    <div class="cert-card">
+      <span class="cert-icon">☁️</span>
+      <div class="cert-name">AWS Cloud Practitioner</div>
+      <div class="cert-body">Amazon Web Services</div>
+    </div>
+    <div class="cert-card" style="grid-column: span 3;">
+      <span class="cert-icon">🎓</span>
+      <div class="cert-name">B.E. in Information Technology</div>
+      <div class="cert-body">Annamalai University · 2012 · CGPA 8.6</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">Get In Touch</div>
+  <div class="contact-grid">
+    <div class="contact-left fade-in">
+      <h2 class="section-title">Open to the <span>Right</span> Opportunity</h2>
+      <p class="contact-text">
+        I'm currently exploring new opportunities across Scrum Master, Project Manager, and 
+        Delivery Manager roles — particularly in BFSI, Wealth Management, and Fintech. If you're 
+        building a delivery function, scaling an Agile team, or need a senior programme leader who 
+        brings both governance depth and team coaching capability, let's talk.
+      </p>
+      <div class="contact-availability">
+        <span class="avail-dot"></span>
+        Available for new opportunities
+      </div>
+      <div class="contact-links">
+        <a href="mailto:0119divya@gmail.com" class="contact-link">
+          <span class="contact-link-icon">✉</span>
+          0119divya@gmail.com
+        </a>
+        <a href="https://linkedin.com/in/0119d" class="contact-link" target="_blank">
+          <span class="contact-link-icon">in</span>
+          LinkedIn Profile
+        </a>
+        <a href="+91-9629458048" class="contact-link" target="_blank">
+          <span class="contact-link-icon">☎</span>
+          Phone
+        </a>
+      </div>
+    </div>
+    <div class="contact-right fade-in">
+      <div class="contact-form-title">Send a Message</div>
+      <form onsubmit="handleSubmit(event)">
+        <div class="form-group">
+          <label>Your Name</label>
+          <input type="text" placeholder="Full Name" required>
+        </div>
+        <div class="form-group">
+          <label>Your Email</label>
+          <input type="email" placeholder="email@company.com" required>
+        </div>
+        <div class="form-group">
+          <label>Organisation</label>
+          <input type="text" placeholder="Company Name">
+        </div>
+        <div class="form-group">
+          <label>Message</label>
+          <textarea placeholder="Tell me about the opportunity or how I can help..." required></textarea>
+        </div>
+        <button type="submit" class="form-submit">Send Message →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-copy">© 2026 DIVYA · Agile Manager</span>
+  <a href="#hero" class="footer-back">↑ Back to Top</a>
+</footer>
+
+<script>
+  // Expand/collapse experience
+  function toggleExp(el) {
+    const isOpen = el.classList.contains('open');
+    document.querySelectorAll('.exp-item').forEach(i => {
+      i.classList.remove('open');
+      i.querySelector('.exp-toggle').textContent = '▾ expand';
+    });
+    if (!isOpen) {
+      el.classList.add('open');
+      el.querySelector('.exp-toggle').textContent = '▴ collapse';
+    }
+  }
+
+  // Scroll fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Form submit placeholder
+  function handleSubmit(e) {
+    e.preventDefault();
+    alert('Thank you for your message! I will get back to you shortly.');
+    e.target.reset();
+  }
+
+  // Active nav link
+  const sections = document.querySelectorAll('section[id]');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 80) current = s.id;
+    });
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.style.color = a.getAttribute('href') === `#${current}`
+        ? 'var(--gold)' : '';
+    });
+  });
+</script>
+</body>
+</html>
